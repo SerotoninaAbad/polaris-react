@@ -7,6 +7,7 @@ Use [the changelog guidelines](https://git.io/polaris-changelog-guidelines) to f
 ### Enhancements
 
 - `Avatar` falls back to `initials` when the image fails to load ([#557](https://github.com/Shopify/polaris-react/pull/557))
+- Added `primaryAction` prop to `SkeletonPage` ([#488](https://github.com/Shopify/polaris-react/pull/488))
 
 ### Bug fixes
 
