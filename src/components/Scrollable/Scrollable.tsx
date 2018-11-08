@@ -31,6 +31,8 @@ export interface Props extends React.HTMLProps<HTMLDivElement> {
   shadow?: boolean;
   /** Slightly hints content upon mounting when scrollable */
   hint?: boolean;
+  /** Called when scrolling to the bottom of the scroll area */
+  onScrollToBottom?(): void;
 }
 
 export interface State {
@@ -112,6 +114,7 @@ class Scrollable extends React.Component<CombinedProps, State> {
       vertical = true,
       shadow,
       hint,
+      onScrollToBottom,
       ...rest
     } = this.props;
 
@@ -144,7 +147,7 @@ class Scrollable extends React.Component<CombinedProps, State> {
   @autobind
   private handleScroll() {
     const {scrollArea} = this;
-    const {shadow} = this.props;
+    const {shadow, onScrollToBottom} = this.props;
     if (scrollArea == null) {
       return;
     }
@@ -153,6 +156,11 @@ class Scrollable extends React.Component<CombinedProps, State> {
       shadow && !(scrollTop + clientHeight >= scrollHeight),
     );
     const shouldTopShadow = Boolean(shadow && scrollTop > 0);
+    const hasReachedBottom = scrollHeight - scrollTop === clientHeight;
+
+    if (hasReachedBottom && onScrollToBottom) {
+      onScrollToBottom();
+    }
 
     this.setState({
       topShadow: shouldTopShadow,
