@@ -156,9 +156,11 @@ class Scrollable extends React.Component<CombinedProps, State> {
       shadow && !(scrollTop + clientHeight >= scrollHeight),
     );
     const shouldTopShadow = Boolean(shadow && scrollTop > 0);
+
+    const canScroll = scrollHeight > clientHeight;
     const hasReachedBottom = scrollHeight - scrollTop === clientHeight;
 
-    if (hasReachedBottom && onScrolledToBottom) {
+    if (canScroll && hasReachedBottom && onScrolledToBottom) {
       onScrolledToBottom();
     }
 
